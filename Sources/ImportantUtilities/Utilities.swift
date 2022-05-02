@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension View {
+public extension View {
     func onLoad(perform action: (() -> Void)? = nil) -> some View {
         modifier(ViewDidLoadModifier(action))
     }
@@ -34,7 +34,7 @@ struct ViewDidLoadModifier: ViewModifier {
 
 }
 
-class Orientation: ObservableObject {
+public class Orientation: ObservableObject {
     @Published var isLandscape: Bool = UIDevice.current.orientation.isLandscape
     @Published var isPortait: Bool = UIDevice.current.orientation.isPortrait
 }
@@ -167,7 +167,7 @@ public extension UIDevice {
     }
 }
 
-extension UIImage {
+public extension UIImage {
     func withColor(_ color: UIColor) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, scale)
         // 1
@@ -184,7 +184,7 @@ extension UIImage {
     }
 }
 
-extension Date {
+public extension Date {
     func formatted(_ format: String) -> String{
         let df = DateFormatter()
         df.locale = Locale(identifier: "de_DE")
