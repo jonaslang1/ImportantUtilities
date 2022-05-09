@@ -207,3 +207,13 @@ public extension Color {
     static let secondarySystemBackground = Color(UIColor.secondarySystemBackground)
     static let tertiarySystemBackground = Color(UIColor.tertiarySystemBackground)
 }
+
+public func openURL(url: String) {
+    var u: URL
+    if url.contains("http") {
+        u = URL(string: url)!
+    } else {
+        u = URL(string: "https://\(url)")!
+    }
+    UIApplication.shared.open(u)
+}
