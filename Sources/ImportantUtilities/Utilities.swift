@@ -217,3 +217,18 @@ public func openURL(url: String) {
     }
     UIApplication.shared.open(u)
 }
+
+public func detectURLs(string: String) -> [String] {
+    var output: [String] = []
+    let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+    let matches = detector.matches(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count))
+
+    for match in matches {
+        guard let range = Range(match.range, in: string) else { continue }
+        let url = string[range]
+        print(url)
+        output.append(String(url))
+    }
+    
+    return output
+}
