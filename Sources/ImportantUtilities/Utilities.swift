@@ -218,17 +218,40 @@ public func openURL(url: String) {
     UIApplication.shared.open(u)
 }
 
-public func detectURLs(string: String) -> [String] {
-    var output: [String] = []
-    let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-    let matches = detector.matches(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count))
+public extension String {
+    
+    init?(htmlEncodedString: String) {
+        guard let data = htmlEncodedString.data(using: .utf8) else {
+            return nil
+        }
 
-    for match in matches {
-        guard let range = Range(match.range, in: string) else { continue }
-        let url = string[range]
-        print(url)
-        output.append(String(url))
+        let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
+            .documentType: NSAttributedString.DocumentType.html,
+            .characterEncoding: String.Encoding.utf8.rawValue
+        ]
+
+        guard let attributedString = try? NSAttributedString(data: data, options: options, documentAttributes: nil) else {
+            return nil
+        }
+
+        self.init(attributedString.string)
+    }
+
+    
+    func detectURLs() -> [String] {
+        var output: [String] = []
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        let matches = detector.matches(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count))
+
+        for match in matches {
+            guard let range = Range(match.range, in: self) else { continue }
+            output.append(String(self[range]))
+        }
+        
+        return output
     }
     
-    return output
+    var isURLString: Bool {
+        self.detectURLs().count == 1
+    }
 }
