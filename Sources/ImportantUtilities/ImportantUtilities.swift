@@ -1,5 +1,5 @@
 //
-//  Utilities.swift
+//  ImportantUtilities.swift
 //  
 //
 //  Created by Jonas Lang on 02.05.22.
@@ -236,11 +236,12 @@ public extension String {
 
         self.init(attributedString.string)
     }
+}
 
-    
-    func detectURLs() -> [String] {
+public extension String {
+    func detect(type: NSTextCheckingResult.CheckingType) -> [String] {
         var output: [String] = []
-        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        let detector = try! NSDataDetector(types: type.rawValue)
         let matches = detector.matches(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count))
 
         for match in matches {
@@ -251,7 +252,19 @@ public extension String {
         return output
     }
     
+    func detectURLs() -> [String] {
+        detect(type: .link)
+    }
+    
     var isURLString: Bool {
-        self.detectURLs().count == 1
+        self.detectURLs().first == self
+    }
+    
+    func detectDates() -> [String] {
+        detect(type: .date)
+    }
+    
+    var isDateString: Bool {
+        self.detectDates().first == self
     }
 }
