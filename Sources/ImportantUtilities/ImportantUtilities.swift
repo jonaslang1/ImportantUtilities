@@ -185,6 +185,7 @@ public extension UIImage {
 }
 
 public extension Date {
+    @available(iOS, deprecated: 15.0, message: "Use formatted( _ format: FormatStyle) instead.")
     func formatted(_ format: String) -> String{
         let df = DateFormatter()
         df.locale = Locale(identifier: "de_DE")
@@ -192,6 +193,11 @@ public extension Date {
         df.dateFormat = format
         return df.string(from: self)
     }
+    
+    @available(iOS 15.0, *)
+    static let defaultDateStyle = Date.FormatStyle().day().month(.defaultDigits).year()
+    @available(iOS 15.0, *)
+    static let defaultTimeStyle = Date.FormatStyle().minute().hour()
 }
 
 public extension Color {
