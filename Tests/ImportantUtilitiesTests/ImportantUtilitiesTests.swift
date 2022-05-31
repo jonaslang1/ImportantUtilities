@@ -18,6 +18,10 @@ final class ImportantUtilitiesTests: XCTestCase {
         XCTAssertEqual(UIDevice.platformName, "iOS")
     }
     
+    func testPlatform() {
+        XCTAssertEqual(UIDevice.platform, UIDevice.Platform.iPhone)
+    }
+    
     func testDeviceName() {
         XCTAssertTrue(UIDevice.modelName.contains("Simulator"))
     }
