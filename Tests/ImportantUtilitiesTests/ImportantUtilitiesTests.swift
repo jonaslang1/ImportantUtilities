@@ -14,10 +14,6 @@ final class ImportantUtilitiesTests: XCTestCase {
         XCTAssertEqual(formatted, date.formatted(format))
     }
     
-    func testPlatformName() {
-        XCTAssertEqual(UIDevice.platformName, "iOS")
-    }
-    
     func testPlatform() {
         XCTAssertEqual(UIDevice.platform, UIDevice.Platform.iPhone)
     }
