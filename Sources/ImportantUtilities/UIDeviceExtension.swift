@@ -137,24 +137,24 @@ public extension UIDevice {
 #if os(iOS)
         let modelName = modelName.replacingOccurrences(of: "Simulator ", with: "").split(separator: " ")[0]
         if modelName == "iPhone" || modelName == "iPod" {
-            return Platform.iPhone
+            return Platform.iOS
         } else if modelName == "iPad" {
-            return Platform.iPad
+            return Platform.iPadOS
         } else {
             return Platform.Undefined
         }
 #elseif os(macOS)
-        return Platform.Mac
+        return Platform.MacOS
 #else
         print("OMG, it's that mythical new Apple product!!!")
         return Platform.Undefined
 #endif
     }
     
-    enum Platform {
-        case iPhone
-        case iPad
-        case Mac
+    enum Platform: String {
+        case iOS
+        case iPadOS
+        case MacOS
         case Undefined
     }
 }
