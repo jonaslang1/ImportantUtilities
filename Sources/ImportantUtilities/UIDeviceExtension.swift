@@ -151,6 +151,16 @@ public extension UIDevice {
 #endif
     }
     
+    static var generalPlatform: Platform {
+#if os(iOS)
+        return Platform.iOS
+#elseif os(macOS)
+        return Platform.MacOS
+#else
+        return Platform.Undefined
+#endif
+    }
+    
     enum Platform: String {
         case iOS
         case iPadOS
