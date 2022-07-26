@@ -87,7 +87,7 @@ public extension Color {
 
 public func openURL(url: String) {
     var u: URL
-    if url.contains("http") {
+    if url.contains("http") || url.contains("mailto"){
         u = URL(string: url)!
     } else {
         u = URL(string: "https://\(url)")!
